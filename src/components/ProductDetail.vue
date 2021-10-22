@@ -31,6 +31,7 @@
     <h2>
       State: <span>{{ state }}</span>
     </h2>
+    <button>Intercambiar este producto</button>
 
   </div>
 </template>
@@ -56,7 +57,6 @@ export default {
       urlimagen: "",
       state: false,
       number: 0,
-      
       loaded: false,
     };
   },
@@ -89,7 +89,6 @@ export default {
           this.urlimagen = result.data.prod_urlimagen;
           this.state = result.data.prod_state;
           this.loaded = true;
-          
         })
         .catch((error) => {
           console.log(error);
@@ -129,11 +128,11 @@ export default {
   align-items: center;
 }
 .information h1 {
-  font-size: 60px;
+  font-size: 20px;
   color: #0f1316;
 }
 .information h2 {
-  font-size: 40px;
+  font-size: 20px;
   color: #283747;
 }
 .information span {
