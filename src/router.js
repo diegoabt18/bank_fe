@@ -6,6 +6,7 @@ import Home from "./components/Home.vue";
 import Account from "./components/Account.vue";
 import Product from "./components/Product.vue";
 import Library from "./components/Library.vue"
+import ProductDetail from "./components/ProductDetail.vue"
 
 const routes = [
   {
@@ -42,7 +43,12 @@ const routes = [
     path: "/user/library",
     name: "library",
     component: Library
-  }
+  }, 
+  {
+    path: "/user/productDetail",
+    name: "productDetail",
+    component: ProductDetail
+  },
 ];
 const router = createRouter({
   history: createWebHistory(),

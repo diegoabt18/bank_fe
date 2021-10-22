@@ -83,7 +83,7 @@ export default {
     },
     loadLibrary: function(){
       this.$router.push({ name: "library" });
-    }
+    },
   },
   created: function() {
     this.verifyAuth();

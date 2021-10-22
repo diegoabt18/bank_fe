@@ -16,6 +16,9 @@
     <h2>
       Type: <span>{{ type }}</span>
     </h2>
+    <div>
+      <!-- <h1>Este es un mensaje {{ msg }}mensajeeee</h1> -->
+    </div>
     <h2>
       Description: <span>{{ description }}</span>
     </h2>
@@ -28,6 +31,7 @@
     <h2>
       State: <span>{{ state }}</span>
     </h2>
+
   </div>
 </template>
 
@@ -36,7 +40,10 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 export default {
-  name: "Library",
+  name: "ProductDetail",
+//   props: {
+//     msg: String
+//   },
   data: function() {
     return {
       name: "",
@@ -48,6 +55,8 @@ export default {
       urlproduct: "",
       urlimagen: "",
       state: false,
+      number: 0,
+      
       loaded: false,
     };
   },
@@ -63,14 +72,13 @@ export default {
       await this.verifyToken();
       let token = localStorage.getItem("token_access");
       let userId = jwt_decode(token).user_id.toString();
-      console.log(userId)
+      let productid = localStorage.getItem("product");
+      
       axios
-        .get(`https://be-telocambio.herokuapp.com/product/${userId}/1`, {
+        .get(`https://be-telocambio.herokuapp.com/product/${userId}/${productid}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
-          console.log(result)
-          console.log(result.data)
           this.name = result.data.prod_name;
           this.artist = result.data.prod_artist;
           this.genre = result.data.prod_genre;
@@ -81,6 +89,7 @@ export default {
           this.urlimagen = result.data.prod_urlimagen;
           this.state = result.data.prod_state;
           this.loaded = true;
+          
         })
         .catch((error) => {
           console.log(error);

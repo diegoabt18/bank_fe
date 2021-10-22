@@ -1,76 +1,43 @@
 <template>
   <div v-if="loaded" class="information">
     <h1>Información de sus productos</h1>
-    <!-- <h2>
-      Name: <span>{{ name }}</span>
-    </h2>
-    <h2>
-      Artist: <span>{{ artist }} </span>
-    </h2>
-    <h2>
-      Genre: <span>{{ genre }}</span>
-    </h2>
-    <h2>
-      Rate: <span>{{ rate }}</span>
-    </h2> -->
-    <h2>
-      Product 1: <span>{{ product1 }}</span>
-    </h2>
-    <h2>
-      Product 2: <span>{{ product2 }}</span>
-    </h2>
-    <h2>
-      Product 3: <span>{{ product3 }}</span>
-    </h2>
-    <h2>
-      Product 4: <span>{{ product4 }}</span>
-    </h2>
-    <ul>
-        <li v-for="item in products" :key="item">{{item}}</li>
-    </ul>
-
-    <!-- <h2>
-      Type: <span>{{ type }}</span>
-    </h2>
-    <h2>
-      Description: <span>{{ description }}</span>
-    </h2>
-    <h2>
-      URLProduct: <span>{{ urlproduct }}</span>
-    </h2>
-    <h2>
-      URLImage: <span>{{ urlimagen }}</span>
-    </h2>
-    <h2>
-      State: <span>{{ state }}</span>
-    </h2> -->
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Artist</th>
+            <th>Genre</th>
+            <th>Rate</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>State</th>
+            <th>Options</th>
+        </tr>
+        <tr v-for="(item, index) in products" :key="item.prod_name">
+            <td>{{index+1}}</td>
+            <td v-for="value in item" :key="value" >{{value}}</td>
+            <button v-on:click="loadProductDetail(item.prod_id)">Detalle del producto</button>
+        </tr>
+    </table> 
+        <!-- <ProductDetail msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
 
 <script>
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+// import ProductDetail from './ProductDetail.vue';
 
 export default {
   name: "Library",
+//     components: {
+//     ProductDetail
+//   },
   data: function() {
     return {
-      name: "",
-      artist: "",
-      genre: "",
-      rate: 0,
-      type: "",
-      description: "",
-      urlproduct: "",
-      urlimagen: "",
-      state: false,
-      product1: "",
-      product2: "",
-      product3: "",
-      product4: "",
-      products: [{prod_name: "Foo", prod_artist: "Twisted Sister", prod_genre: "Rock", prod_rate: 5 }, {prod_name: "BarBarBar"}, {prod_name: "DIDID"}, {prod_name: "Bar"}, {prod_name: "Foo"}, {prod_name: "Bar"}],
-
+      products: [{"":""}],
       loaded: false,
+      productID: 0,
     };
   },
   methods: {
@@ -85,31 +52,24 @@ export default {
       await this.verifyToken();
       let token = localStorage.getItem("token_access");
       let userId = jwt_decode(token).user_id.toString();
-      console.log(token)
+      
       axios
         .get(`https://be-telocambio.herokuapp.com/product/list/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
-          console.log(result)
-          console.log(result.data)
-        //   this.name = result.data.prod_name;
-        //   this.artist = result.data.prod_artist;
-        //   this.genre = result.data.prod_genre;
-        //   this.rate = result.data.prod_rate;
-        //   this.type = result.data.prod_type;
-        //   this.description = result.data.prod_description;
-        //   this.urlproduct = result.data.prod_urlproduct;
-        //   this.urlimagen = result.data.prod_urlimagen;
-        //   this.state = result.data.prod_state;
-          this.product1 = result.data[0];
-          this.product2 = result.data[1];
-          this.product3 = result.data[2];
-          this.product4 = result.data[3];
+          this.products = result.data;
+          for (let item of this.products) {
+            //   delete item.prod_id;
+              delete item.prod_user;
+              delete item.prod_urlproduct;
+              delete item.prod_urlimagen;
+          }
           this.loaded = true;
         })
         .catch((error) => {
           console.log(error);
+          alert("ERROR: Fallo en la librería");
           this.$emit("logOut");
         });
     },
@@ -127,6 +87,11 @@ export default {
           this.$emit("logOut");
         });
     },
+    loadProductDetail: function(productID) {
+      localStorage.setItem("product", productID);
+      this.$router.push({ name: "productDetail" });
+    },
+    
   },
   created: async function() {
     this.getData();
@@ -156,5 +121,20 @@ export default {
 .information span {
   color: crimson;
   font-weight: bold;
+}
+table, th, td, tr {
+  border:1px solid black;
+}
+button {
+  color: #e5e7e9;
+  background: #283747;
+  border: 1px solid #e5e7e9;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+button:hover {
+  color: #283747;
+  background: #e5e7e9;
+  border: 1px solid #e5e7e9;
 }
 </style>
