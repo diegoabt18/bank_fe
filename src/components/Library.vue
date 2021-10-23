@@ -17,6 +17,7 @@
             <td>{{index+1}}</td>
             <td v-for="value in item" :key="value" >{{value}}</td>
             <button v-on:click="loadProductDetail(item.prod_id)">Detalle del producto</button>
+            <button v-on:click="deleteProduct(item.prod_id)">Borrar este producto</button>
         </tr>
     </table> 
         <!-- <ProductDetail msg="Welcome to Your Vue.js App"/> -->
@@ -65,7 +66,13 @@ export default {
               delete item.prod_urlproduct;
               delete item.prod_urlimagen;
           }
-          this.loaded = true;
+          // if(  this.products === null || this.products === undefined || Array.isArray(this.products)  ){
+          if (Object.getOwnPropertyNames(this.products).length === 0 &&  Object.getOwnPropertySymbols(this.products).length === 0 &&  Object.getPrototypeOf(this.products) === Object.prototype) {
+            alert("Crea un producto primero para ver tu librería!");
+          } else {
+            this.loaded = true;
+          }
+          
         })
         .catch((error) => {
           console.log(error);
@@ -91,6 +98,34 @@ export default {
       localStorage.setItem("product", productID);
       this.$router.push({ name: "productDetail" });
     },
+    deleteProduct: async function(productID) {
+      if (
+        localStorage.getItem("token_access") === null ||
+        localStorage.getItem("token_refresh") === null
+      ) {
+        this.$emit("logOut");
+        return;
+      }
+      await this.verifyToken();
+      let token = localStorage.getItem("token_access");
+      let userId = jwt_decode(token).user_id.toString();
+      localStorage.setItem("product", productID);
+      let productId = localStorage.getItem("product").toString();
+      axios
+        .get(`https://be-telocambio.herokuapp.com/product/remove/${userId}/${productId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((result) => {
+          let message = result.data;
+          alert(message);
+          this.getData();
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("ERROR: Fallo eliminado el producto");
+          this.$emit("logOut");
+        });
+    }
     
   },
   created: async function() {

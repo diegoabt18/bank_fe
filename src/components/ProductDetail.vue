@@ -1,6 +1,6 @@
 <template>
   <div v-if="loaded" class="information">
-    <h1>Información de sus productos</h1>
+    <h2>Información de sus productos</h2>
     <h2>
       Name: <span>{{ name }}</span>
     </h2>
@@ -31,7 +31,8 @@
     <h2>
       State: <span>{{ state }}</span>
     </h2>
-    <button>Intercambiar este producto</button>
+    <button v-on:click="loadProductUpdate">Editar información del producto</button>
+    <button v-on:click="loadAllUsers">Intercambiar este producto</button>
 
   </div>
 </template>
@@ -42,9 +43,9 @@ import axios from "axios";
 
 export default {
   name: "ProductDetail",
-//   props: {
-//     msg: String
-//   },
+  props: {
+    msg: String
+  },
   data: function() {
     return {
       name: "",
@@ -109,6 +110,12 @@ export default {
           this.$emit("logOut");
         });
     },
+    loadAllUsers: function() {
+      this.$router.push({ name: "allUsers" });
+    },
+    loadProductUpdate: function() {
+      this.$router.push({ name: "updateProduct"});
+    }
   },
   created: async function() {
     this.getData();

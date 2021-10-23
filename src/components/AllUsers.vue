@@ -1,7 +1,16 @@
 <template>
   <div v-if="loaded" class="information">
-    <h1>Intercambio realizado</h1>
-    
+    <h1>Con quién quieres intercambiar?</h1>
+
+    <div class="userList">
+        <div v-for="item in usersList" :key="item.pk" class="userContainer">
+            <h2>Username: {{item.fields.username}}</h2>
+            <h2>Email: {{item.fields.email}}</h2>
+            <h2>Phone: {{item.fields.cellphone}}</h2>
+            <button v-on:click="loadExchange(item.pk)">Seleccionar usuario</button>
+        </div>
+    </div>
+
   </div>
 </template>
 
@@ -10,20 +19,11 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 export default {
-  name: "Exchange",
+  name: "AllUsers",
   data: function() {
     return {
-      exchange: {
-          user_id: "",
-          exchange_data: {
-            exch_userorigin: "", 
-            exch_userdestination: "", 
-            exch_prod: "", 
-            exch_fecha: new Date().toJSON().toString(),
-          },
-      },
-      messageResult: "",
-      loaded: false,
+      usersList: [{"":""}],
+        loaded: false,
     };
   },
   methods: {
@@ -37,23 +37,19 @@ export default {
       }
       await this.verifyToken();
       let token = localStorage.getItem("token_access");
-      let userId = jwt_decode(token).user_id;
-      this.exchange.user_id = userId;
-      this.exchange.exchange_data.exch_userorigin = userId;
-      this.exchange.exchange_data.exch_userdestination = parseInt(localStorage.getItem("userExchange"));
-      this.exchange.exchange_data.exch_prod = parseInt(localStorage.getItem("product"));
-            
+      let userId = jwt_decode(token).user_id.toString();
+      
       axios
-        .post(`https://be-telocambio.herokuapp.com/exchange/`, this.exchange, {
+        .get(`https://be-telocambio.herokuapp.com/user/list/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
-          this.messageResult = result.data;
+          this.usersList = result.data;
           this.loaded = true;
         })
         .catch((error) => {
           console.log(error);
-          alert("ERROR: Fallo en la creación del intercambio");
+          alert("ERROR: Fallo en la vista de usuarios");
           this.$emit("logOut");
         });
     },
@@ -70,6 +66,10 @@ export default {
         .catch(() => {
           this.$emit("logOut");
         });
+    },
+    loadExchange: function(userID) {
+      localStorage.setItem("userExchange", userID);
+      this.$router.push({ name: "exchange" });
     },
   },
   created: async function() {

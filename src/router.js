@@ -5,8 +5,11 @@ import SignUp from "./components/SignUp.vue";
 import Home from "./components/Home.vue";
 import Account from "./components/Account.vue";
 import Product from "./components/Product.vue";
-import Library from "./components/Library.vue"
-import ProductDetail from "./components/ProductDetail.vue"
+import Library from "./components/Library.vue";
+import ProductDetail from "./components/ProductDetail.vue";
+import AllUsers from "./components/AllUsers.vue";
+import Exchange from "./components/Exchange.vue";
+import ProductUpdate from "./components/ProductUpdate.vue";
 
 const routes = [
   {
@@ -48,6 +51,21 @@ const routes = [
     path: "/user/productDetail",
     name: "productDetail",
     component: ProductDetail
+  },
+  {
+    path: "/user/allUsers",
+    name: "allUsers",
+    component: AllUsers
+  },
+  {
+    path: "/user/exchange",
+    name: "exchange",
+    component: Exchange
+  },
+  {
+    path: "/user/updateProduct",
+    name: "updateProduct",
+    component: ProductUpdate
   },
 ];
 const router = createRouter({

@@ -80,6 +80,17 @@ export default {
             messageProductCreation: result,
           };
           this.$emit("completedProductCreation", dataProductCreation);
+          this.product.user_id = 0;
+          this.product.product_data.prod_user = 0;
+          this.product.product_data.prod_name = "";
+          this.product.product_data.prod_artist = "";
+          this.product.product_data.prod_genre = "";
+          this.product.product_data.prod_rate = 0;
+          this.product.product_data.prod_type = "";
+          this.product.product_data.prod_description = "";
+          this.product.product_data.prod_urlproduct = "";
+          this.product.product_data.prod_urlimagen = "";
+          this.product.product_data.prod_state = false;
         })
         .catch((error) => {
           console.log(error);
