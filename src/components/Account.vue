@@ -96,13 +96,13 @@ export default {
 <style>
 .information {
   margin: 0;
-  padding: 0%;
+  padding: 0% 15%;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: letf;
 }
 .information h1 {
   font-size: 60px;
@@ -113,7 +113,7 @@ export default {
   color: #283747;
 }
 .information span {
-  color: crimson;
+  color: rgb(250, 246, 247);
   font-weight: bold;
 }
 </style>

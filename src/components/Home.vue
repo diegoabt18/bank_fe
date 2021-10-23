@@ -1,7 +1,6 @@
 <template>
   <div class="greetings">
-    <h1>
-      ¡Bienvenido <span> {{ username }} </span>!
+    <h1>¡Bienvenido <span> {{ username }} </span>!
     </h1>
   </div>
 </template>
@@ -15,22 +14,24 @@ export default {
   },
 };
 </script>
+
 <style>
 .greetings {
   margin: 0;
-  padding: 0%;
+  padding:  0% 15%;
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
 }
 .greetings h1 {
   font-size: 50px;
   color: #283747;
+ 
 }
 .greetings span {
-  color: crimson;
+  color: rgb(185, 57, 132);
   font-weight: bold;
 }
 </style>

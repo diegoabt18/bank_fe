@@ -26,7 +26,6 @@
     
     <div class="footer">
       <h2> Misión TIC 2022</h2>
-      <h2> Misión TIC 2022</h2>
     </div>
   </div>
 </template>
@@ -155,7 +154,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 10vh;
+  height: 0vh;
   min-height: 100px;
   background-color: #2d0350;
   color: #e5e7e9;
