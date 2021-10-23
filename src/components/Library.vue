@@ -66,13 +66,13 @@ export default {
               delete item.prod_urlproduct;
               delete item.prod_urlimagen;
           }
-          // if(  this.products === null || this.products === undefined || Array.isArray(this.products)  ){
-          if (Object.getOwnPropertyNames(this.products).length === 0 &&  Object.getOwnPropertySymbols(this.products).length === 0 &&  Object.getPrototypeOf(this.products) === Object.prototype) {
+          // if(  this.products[0].prod_name === null || this.products === undefined || Array.isArray(this.products)  ){
+          // if (Object.getOwnPropertyNames(this.products).length === 0 &&  Object.getOwnPropertySymbols(this.products).length === 0 &&  Object.getPrototypeOf(this.products) === Object.prototype) {
+            if (this.products[0] === null || this.products[0] === undefined) {
             alert("Crea un producto primero para ver tu librería!");
           } else {
             this.loaded = true;
           }
-          
         })
         .catch((error) => {
           console.log(error);

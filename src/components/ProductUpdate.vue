@@ -8,21 +8,21 @@
         <div class="ProductInfoContainer"> 
             <h2>Editar información de contenido</h2>
             <form v-on:submit.prevent="processProductUpdate">
-            <input type="text" v-model="product.prod_name" placeholder="Name" />
+            <input type="text" v-model="product.prod_name" placeholder="Name" required/>
             <br />
-            <input type="text" v-model="product.prod_artist" placeholder="Artist" />
+            <input type="text" v-model="product.prod_artist" placeholder="Artist" required/>
             <br />
-            <input type="text" v-model="product.prod_genre" placeholder="Genre" />
+            <input type="text" v-model="product.prod_genre" placeholder="Genre" required/>
             <br />
-            <input type="number" v-model="product.prod_rate" placeholder="Rate" />
+            <input type="number" v-model="product.prod_rate" placeholder="Rate" required/>
             <br />
-            <input type="text" v-model="product.prod_type" placeholder="Type" />
+            <input type="text" v-model="product.prod_type" placeholder="Type" required/>
             <br />
-            <input type="text" v-model="product.prod_description" placeholder="Description" />
+            <input type="text" v-model="product.prod_description" placeholder="Description" required/>
             <br />
-            <input type="text" v-model="product.prod_urlproduct" placeholder="URLProduct" />
+            <input type="text" v-model="product.prod_urlproduct" placeholder="URLProduct" required/>
             <br />
-            <input type="text" v-model="product.prod_urlimagen" placeholder="URLImage" />
+            <input type="text" v-model="product.prod_urlimagen" placeholder="URLImage" required/>
             <br />
             <button type="submit">Editar información</button>
             </form>

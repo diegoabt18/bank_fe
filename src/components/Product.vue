@@ -3,21 +3,21 @@
     <div class="container_productCreation_user">
       <h2>Crear contenido</h2>
       <form v-on:submit.prevent="processProductCreation">
-        <input type="text" v-model="product.product_data.prod_name" placeholder="Name" />
+        <input type="text" v-model="product.product_data.prod_name" placeholder="Name" required/>
         <br />
-        <input type="text" v-model="product.product_data.prod_artist" placeholder="Artist" />
+        <input type="text" v-model="product.product_data.prod_artist" placeholder="Artist" required/>
         <br />
-        <input type="text" v-model="product.product_data.prod_genre" placeholder="Genre" />
+        <input type="text" v-model="product.product_data.prod_genre" placeholder="Genre" required/>
         <br />
-        <input type="number" v-model="product.product_data.prod_rate" placeholder="Rate" />
+        <input type="number" v-model="product.product_data.prod_rate" placeholder="Rate" required/>
         <br />
-        <input type="text" v-model="product.product_data.prod_type" placeholder="Type" />
+        <input type="text" v-model="product.product_data.prod_type" placeholder="Type" required/>
         <br />
-        <input type="text" v-model="product.product_data.prod_description" placeholder="Description" />
+        <input type="text" v-model="product.product_data.prod_description" placeholder="Description" required/>
         <br />
-        <input type="text" v-model="product.product_data.prod_urlproduct" placeholder="URLProduct" />
+        <input type="text" v-model="product.product_data.prod_urlproduct" placeholder="URLProduct" required/>
         <br />
-        <input type="text" v-model="product.product_data.prod_urlimagen" placeholder="URLImage" />
+        <input type="text" v-model="product.product_data.prod_urlimagen" placeholder="URLImage" required/>
         <br />
         <!-- <input type="text" v-model="product.product_data.prod_state" placeholder="State" />
         <br /> -->

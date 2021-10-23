@@ -3,19 +3,19 @@
     <div class="container_signUp_user">
       <h2>Registrarse</h2>
       <form v-on:submit.prevent="processSignUp">
-        <input type="text" v-model="user.username" placeholder="Username" />
+        <input type="text" v-model="user.username" placeholder="Username" required/>
         <br />
-        <input type="password" v-model="user.password" placeholder="Password" />
+        <input type="password" v-model="user.password" placeholder="Password" required/>
         <br />
-        <input type="text" v-model="user.name" placeholder="Name" />
+        <input type="text" v-model="user.name" placeholder="Name" required/>
         <br />
-        <input type="text" v-model="user.last_name" placeholder="Lastname" />
+        <input type="text" v-model="user.last_name" placeholder="Lastname" required/>
         <br />
-        <input type="email" v-model="user.email" placeholder="Email" />
+        <input type="email" v-model="user.email" placeholder="Email" required/>
         <br />
-        <input type="text" v-model="user.address" placeholder="Address" />
+        <input type="text" v-model="user.address" placeholder="Address" required/>
         <br />
-        <input type="number" v-model="user.cellphone" placeholder="Cellphone" />
+        <input type="number" v-model="user.cellphone" placeholder="Cellphone" required/>
         <br />
         <button type="submit">Registrarse</button>
       </form>
