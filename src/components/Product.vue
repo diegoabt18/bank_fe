@@ -28,8 +28,6 @@
 </template>
 
 
-
-
 <script>
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -120,31 +118,35 @@ export default {
 <style>
 .productCreation_user {
   margin: 0;
-  padding: 0%;
+  padding: 1% 15%;
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
 }
 .container_productCreation_user {
-  border: 3px solid #283747;
+  border: 3px solid #4a6b8f9d;
   border-radius: 10px;
   width: 25%;
-  height: 60%;
+  height: 95%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+  background: rgba(77, 105, 134, 0.425);
+  font-size: 40px;
 }
 .productCreation_user h2 {
   color: #283747;
+  font-size: 35px;
+
 }
 .productCreation_user form {
   width: 70%;
 }
 .productCreation_user input {
-  height: 40px;
+  height: 35px;
   width: 100%;
   box-sizing: border-box;
   padding: 10px 20px;
