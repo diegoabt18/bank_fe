@@ -4,6 +4,7 @@
     <table>
         <tr>
             <th>ID</th>
+            <th>Product_ID</th>
             <th>Name</th>
             <th>Artist</th>
             <th>Genre</th>
@@ -159,6 +160,7 @@ export default {
 }
 table, th, td, tr {
   border:1px solid black;
+   font-size: 25px;
 }
 button {
   color: #e5e7e9;
