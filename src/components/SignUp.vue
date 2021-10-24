@@ -90,7 +90,7 @@ export default {
 
 .signUp_user h2 {
   color: #193450;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 .signUp_user form {
@@ -101,7 +101,7 @@ export default {
   height: 40px;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 20px;
+  padding: 7px 20px;
   margin: 5px 0;
   border: 1px solid #4b627aad;
   font-size: 17px;

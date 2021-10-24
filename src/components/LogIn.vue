@@ -73,7 +73,7 @@ export default {
 
 .logIn_user h2 {
   color: #193450;
-  font-size: 40px;
+  font-size: 35px;
 }
 
 .logIn_user form {
