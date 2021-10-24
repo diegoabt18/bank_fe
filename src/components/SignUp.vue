@@ -45,7 +45,7 @@ export default {
   methods: {
     processSignUp: function() {
       axios
-        .post("https://telocambio-bd.herokuapp.com/user/", this.user, {
+        .post("https://db-telocambio.herokuapp.com/user/", this.user, {
           headers: {},
         })
         .then((result) => {
@@ -66,6 +66,7 @@ export default {
 </script>
 
 <style>
+
 .signUp_user {
   margin: 0;
   padding: 2% 15%;
@@ -78,7 +79,7 @@ export default {
 
 .container_signUp_user {
   border: 3px solid #4a6b8f9d;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 25%;
   height: 100%;
   display: flex;
@@ -88,9 +89,10 @@ export default {
   background: rgba(77, 105, 134, 0.425)
 }
 
-.signUp_user h2 {
+.container_signUp_user  h2 {
   color: #193450;
   font-size: 35px;
+  
 }
 
 .signUp_user form {
@@ -98,7 +100,7 @@ export default {
 }
 
 .signUp_user input {
-  height: 40px;
+  height: 30px;
   width: 100%;
   box-sizing: border-box;
   padding: 7px 20px;

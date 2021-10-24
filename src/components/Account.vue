@@ -46,7 +46,7 @@ export default {
       let token = localStorage.getItem("token_access");
       let userId = jwt_decode(token).user_id.toString();
       axios
-        .get(`https://telocambio-bd.herokuapp.com/user/${userId}/`, {
+        .get(`https://db-telocambio.herokuapp.com/user/${userId}/`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -66,7 +66,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://telocambio-bd.herokuapp.com/refresh/",
+          "https://db-telocambio.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )

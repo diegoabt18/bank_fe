@@ -28,7 +28,7 @@ export default {
   methods: {
     processLogInUser: function() {
       axios
-        .post("https://telocambio-bd.herokuapp.com/login/", this.user, {
+        .post("https://db-telocambio.herokuapp.com/login/", this.user, {
           headers: {},
         })
         .then((result) => {

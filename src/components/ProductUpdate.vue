@@ -82,7 +82,7 @@ export default {
       };  
         
       axios
-        .post(`https://telocambio-bd.herokuapp.com/product/update/${userIdFromToken}/${productID}`, this.product, { headers })
+        .post(`https://db-telocambio.herokuapp.com/product/update/${userIdFromToken}/${productID}`, this.product, { headers })
         .then((result) => {
             alert("Información del producto actualizada");
             this.product.user_id = 0;
@@ -105,7 +105,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://telocambio-bd.herokuapp.com/refresh/",
+          "https://db-telocambio.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )

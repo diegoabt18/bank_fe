@@ -76,7 +76,7 @@ export default {
       let productid = localStorage.getItem("product");
       
       axios
-        .get(`https://telocambio-bd.herokuapp.com/product/${userId}/${productid}`, {
+        .get(`https://db-telocambio.herokuapp.com/product/${userId}/${productid}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -99,7 +99,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://telocambio-bd.herokuapp.com/refresh/",
+          "https://db-telocambio.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )

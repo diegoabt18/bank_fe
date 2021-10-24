@@ -55,7 +55,7 @@ export default {
       let userId = jwt_decode(token).user_id.toString();
       
       axios
-        .get(`https://telocambio-bd.herokuapp.com/product/list/${userId}`, {
+        .get(`https://db-telocambio.herokuapp.com/product/list/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -83,7 +83,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://telocambio-bd.herokuapp.com/refresh/",
+          "https://db-telocambio.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )
@@ -112,7 +112,7 @@ export default {
       localStorage.setItem("product", productID);
       let productId = localStorage.getItem("product").toString();
       axios
-        .get(`https://telocambio-bd.herokuapp.com/product/remove/${userId}/${productId}`, {
+        .get(`https://db-telocambio.herokuapp.com/product/remove/${userId}/${productId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {

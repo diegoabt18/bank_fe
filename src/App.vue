@@ -10,6 +10,7 @@
         <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
         <button v-if="is_auth" v-on:click="loadProduct">Crear producto</button>
         <button v-if="is_auth" v-on:click="loadLibrary">Librería</button>
+        <button v-if="is_auth" v-on:click="loadLibrary">...................</button>
       </nav>
     </div>
 

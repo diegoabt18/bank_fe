@@ -72,7 +72,7 @@ export default {
       };  
 
       axios
-        .post("https://telocambio-bd.herokuapp.com/product/", this.product, { headers })
+        .post("https://db-telocambio.herokuapp.com/product/", this.product, { headers })
         .then((result) => {
           let dataProductCreation = {
             messageProductCreation: result,
@@ -99,7 +99,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://telocambio-bd.herokuapp.com/refresh/",
+          "https://db-telocambio.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )
