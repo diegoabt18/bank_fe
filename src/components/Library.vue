@@ -154,7 +154,7 @@ export default {
   color: #283747;
 }
 .information span {
-  color: crimson;
+  color: rgb(250, 246, 247);
   font-weight: bold;
 }
 table, th, td, tr {

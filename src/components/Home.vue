@@ -18,7 +18,7 @@ export default {
 <style>
 .greetings {
   margin: 0;
-  padding:  0% 15%;
+  padding:  20% 15%;
   height: 100%;
   width: 100%;
   display: flex;
@@ -31,7 +31,7 @@ export default {
  
 }
 .greetings span {
-  color: rgb(185, 57, 132);
+  color: rgb(252, 248, 250);
   font-weight: bold;
 }
 </style>
