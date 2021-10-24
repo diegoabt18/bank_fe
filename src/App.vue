@@ -113,7 +113,7 @@ body {
 
 .header h1 {
   width: 20%;
-  text-align: center;
+  text-align: left;
   font-family: "Adelio Darmanto", sans-serif;
 }
 
@@ -122,7 +122,7 @@ body {
   width: 20%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: left;
   font-size: 20px;
 }
 
