@@ -31,7 +31,7 @@
     <h2>
       State: <span>{{ state }}</span>
     </h2>
-    <button v-on:click="loadProductUpdate">Editar información del producto</button>
+    <!-- <button v-on:click="loadProductUpdate">Editar información del producto</button> -->
     <button v-on:click="loadAllUsers">Intercambiar este producto</button>
 
   </div>
@@ -76,19 +76,20 @@ export default {
       let productid = localStorage.getItem("product");
       
       axios
-        .get(`https://db-telocambio.herokuapp.com/product/${userId}/${productid}`, {
+        .get(`https://telocambio-example.herokuapp.com/product/${userId}/${productid}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
-          this.name = result.data.prod_name;
-          this.artist = result.data.prod_artist;
-          this.genre = result.data.prod_genre;
-          this.rate = result.data.prod_rate;
-          this.type = result.data.prod_type;
-          this.description = result.data.prod_description;
-          this.urlproduct = result.data.prod_urlproduct;
-          this.urlimagen = result.data.prod_urlimagen;
-          this.state = result.data.prod_state;
+          console.log(result.data[0].fields)
+          this.name = result.data[0].fields.prod_name;
+          this.artist = result.data[0].fields.prod_artist;
+          this.genre = result.data[0].fields.prod_genre;
+          this.rate = result.data[0].fields.prod_rate;
+          this.type = result.data[0].fields.prod_type;
+          this.description = result.data[0].fields.prod_description;
+          this.urlproduct = result.data[0].fields.prod_urlproduct;
+          this.urlimagen = result.data[0].fields.prod_urlimagen;
+          this.state = result.data[0].fields.prod_state;
           this.loaded = true;
         })
         .catch((error) => {
@@ -99,7 +100,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://db-telocambio.herokuapp.com/refresh/",
+          "https://telocambio-example.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )

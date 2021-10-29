@@ -71,6 +71,7 @@ export default {
       alert("Librería cargada exitosamente");
     },
     loadHome: function() {
+
       this.$router.push({ name: "home" });
     },
     loadProduct: function() {

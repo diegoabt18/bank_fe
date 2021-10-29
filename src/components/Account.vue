@@ -1,20 +1,28 @@
 <template>
-  
-    <div class="signUp_Account">
-     <div class="container_Account">
-       <div v-if="loaded" class="information">
-        <b><h2>DATOS CUENTA</h2></b>
-        <h2>Nombre: <span>{{ name }}</span></h2>
-        <h2> Username: <span>{{ username }} </span></h2>
-        <h2>Apellido: <span>{{ lastname }}</span></h2>
-        <h2>Correo electrónico: <span>{{ email }}</span></h2>
-        <h2>Dirección: <span>{{ address }}</span></h2>
-        <h2>Celular: <span>{{ cellphone }}</span></h2>
-     </div>
-    </div>
+  <div v-if="loaded" class="information">
+    <h1>Información de su cuenta</h1>
+    <h2>
+      Nombre: <span>{{ name }}</span>
+    </h2>
+    <h2>
+      Username: <span>{{ username }} </span>
+    </h2>
+    <h2>
+      Apellido: <span>{{ lastname }}</span>
+    </h2>
+    <h2>
+      Correo electrónico: <span>{{ email }}</span>
+    </h2>
+    <h2>
+      Dirección: <span>{{ address }}</span>
+    </h2>
+    <h2>
+      Celular: <span>{{ cellphone }}</span>
+    </h2>
   </div>
-
 </template>
+
+
 
 <script>
 import jwt_decode from "jwt-decode";
@@ -46,7 +54,7 @@ export default {
       let token = localStorage.getItem("token_access");
       let userId = jwt_decode(token).user_id.toString();
       axios
-        .get(`https://db-telocambio.herokuapp.com/user/${userId}/`, {
+        .get(`https://telocambio-example.herokuapp.com/user/${userId}/`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -58,7 +66,6 @@ export default {
           this.cellphone = result.data.cellphone;
           this.loaded = true;
         })
-
         .catch(() => {
           this.$emit("logOut");
         });
@@ -66,7 +73,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://db-telocambio.herokuapp.com/refresh/",
+          "https://telocambio-example.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )
@@ -89,59 +96,23 @@ export default {
 .information {
   margin: 0;
   padding: 0%;
-  width: 90%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 40px;
-  
-  }
-
+}
 .information h1 {
-  font-size: 40px;
-  color: #212930;
-  font-weight: bold;
+  font-size: 60px;
+  color: #0f1316;
 }
 .information h2 {
-  font-size: 90px;
+  font-size: 40px;
   color: #283747;
-  font-weight: bold;
 }
 .information span {
-  color: rgb(250, 246, 247);
-  }
-
-.signUp_Account {
-  margin: 0;
-  padding: 2% 15%;
-  height: 90%;
-  width: 100%;
-  display: flex;
-  justify-content: left;
-  align-items: left;
-}
-
-.container_Account {
-  border: 3px solid #4a6b8f9d;
-  border-radius: 10px;
-  width: 25%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: rgba(77, 105, 134, 0.425);
-  font-size: 60px;
+  color: crimson;
   font-weight: bold;
 }
-
-.signUp_user h2 {
-  color: #193450;
-  font-size: 60px;
-  font-weight: bold;
-  
-}
-
 </style>

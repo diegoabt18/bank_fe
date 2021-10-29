@@ -2,23 +2,47 @@
   <div v-if="loaded" class="information">
     <h1>Información de sus productos</h1>
     <table>
+        
         <tr>
             <th>ID</th>
             <th>Product_ID</th>
+            <th>user</th>
             <th>Name</th>
             <th>Artist</th>
             <th>Genre</th>
             <th>Rate</th>
             <th>Type</th>
             <th>Description</th>
+            <th>audio</th>
+            <th>imagen</th>
             <th>State</th>
             <th>Options</th>
         </tr>
-        <tr v-for="(item, index) in products" :key="item.prod_name">
+        <tr v-for="(item, index) in products" :key="item.pk">
             <td>{{index+1}}</td>
-            <td v-for="value in item" :key="value" >{{value}}</td>
-            <button v-on:click="loadProductDetail(item.prod_id)">Detalle del producto</button>
-            <button v-on:click="deleteProduct(item.prod_id)">Borrar este producto</button>
+            <td>{{item.pk}}</td>
+            <td v-for="(value, index2) in item.fields" :key="value" >
+              
+              <p v-if="Visualizador1(value, index2)">
+                <button v-on:click="Reproductor(value)">Reproducir</button>
+                <button v-on:click="Pausar()">Pausar</button>
+              </p>
+              <p v-if="Visualizador2(value, index2)" v-html="inputs">  
+                
+              </p>
+              <p v-if="Visualizador3(value, index2)">
+                {{value}}
+              </p>
+
+              <!-- <p v-else>{{value}}</p> -->
+
+            </td>
+           
+            <button v-on:click="loadProductDetail(item.pk)">Detalle del producto</button>
+            <button v-on:click="deleteProduct(item.pk)">Borrar este producto</button>
+            
+            <!-- <button v-on:click="Reproductor('https://telocambio-example.herokuapp.com/media/audio/eminen.mp4')">Play1</button>
+            <button v-on:click="Reproductor('https://telocambio-example.herokuapp.com/media/audio/y2mate.com_-_LAS_REGLAS_320kbps.mp3')">Play</button> -->
         </tr>
     </table> 
         <!-- <ProductDetail msg="Welcome to Your Vue.js App"/> -->
@@ -40,6 +64,8 @@ export default {
       products: [{"":""}],
       loaded: false,
       productID: 0,
+      inputs:"",
+      music:new Audio(),
     };
   },
   methods: {
@@ -56,17 +82,19 @@ export default {
       let userId = jwt_decode(token).user_id.toString();
       
       axios
-        .get(`https://db-telocambio.herokuapp.com/product/list/${userId}`, {
+        .get(`https://telocambio-example.herokuapp.com/product/list/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
           this.products = result.data;
+          console.log(result.data)
           for (let item of this.products) {
-            //   delete item.prod_id;
+              delete item.model;
               delete item.prod_user;
-              delete item.prod_urlproduct;
-              delete item.prod_urlimagen;
+              item.fields.prod_urlproduct ="https://telocambio-example.herokuapp.com/media/"+item.fields.prod_urlproduct;
+              item.fields.prod_urlimagen ="https://telocambio-example.herokuapp.com/media/"+item.fields.prod_urlimagen;
           }
+
           // if(  this.products[0].prod_name === null || this.products === undefined || Array.isArray(this.products)  ){
           // if (Object.getOwnPropertyNames(this.products).length === 0 &&  Object.getOwnPropertySymbols(this.products).length === 0 &&  Object.getPrototypeOf(this.products) === Object.prototype) {
             if (this.products[0] === null || this.products[0] === undefined) {
@@ -84,7 +112,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://db-telocambio.herokuapp.com/refresh/",
+          "https://telocambio-example.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )
@@ -113,7 +141,7 @@ export default {
       localStorage.setItem("product", productID);
       let productId = localStorage.getItem("product").toString();
       axios
-        .get(`https://db-telocambio.herokuapp.com/product/remove/${userId}/${productId}`, {
+        .get(`https://telocambio-example.herokuapp.com/product/remove/${userId}/${productId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -126,12 +154,61 @@ export default {
           alert("ERROR: Fallo eliminado el producto");
           this.$emit("logOut");
         });
+    },
+    Visualizador1(productos, indice){
+      let bool=false;
+      //console.log(indice)
+      if(indice=="prod_urlproduct"){
+       // console.log(productos)
+        //this.inputs='<button v-on:click="Reproductor('+"'"+productos+"'"+')">Play</button>';
+     //   console.log(this.inputs)
+       bool=true;
+      }
+      return bool;
+    },
+     Visualizador2(productos, indice){
+      let bool=false;
+      //console.log(indice)
+      if(indice=="prod_urlimagen"){
+        this.inputs='<img width="150" height="150" src="'+productos +'">';
+       bool=true;
+      }
+      return bool;
+    },
+     Visualizador3(productos, indice){
+      let bool=false;
+      //console.log(indice)
+      if(indice!="prod_urlimagen" && indice!="prod_urlproduct"){
+        //this.inputs='<img width="150" height="150" src="'+productos +'">';
+       bool=true;
+      }
+      return bool;
+    },
+    Reproductor(link){
+      
+      console.log(link)
+      this.music.pause()
+      this.music.src= (link)
+      this.music.load()
+      this.music.play()
+      localStorage.setItem("musik",this.music)
+      
+    },
+    Pausar(){
+      this.music.pause()
+    },
+    prueba(){
+      alert("esto es una prueba")
     }
     
   },
   created: async function() {
     this.getData();
   },
+  // beforeDestroy: function() {
+  //   console.log("Entra aqui")
+  //   this.music.pause()
+  // },
 };
 </script>
 
