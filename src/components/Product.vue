@@ -15,9 +15,9 @@
         <br />
         <input type="text" v-model="product.product_data.prod_description" placeholder="Description" required/>
         <br />
-        <label style="font-size:12">Ingrese el prudcto (audio o video)</label>
+        <label style="font-size:25px">Ingrese el prudcto (audio o video)</label>
         <input type="file" name="pro" @change="OnFileSelectecd1" placeholder="URLProducto" />
-        <label style="font-size:12">Ingrese una caratula (imagen)</label>
+        <label style="font-size:25px">Ingrese una caratula (imagen)</label>
         <input type="file" name="img" @change="OnFileSelectecd2" placeholder="URLImagen" />
         <!-- <input type="text" v-model="product.product_data.prod_state" placeholder="State" />
         <br /> -->
