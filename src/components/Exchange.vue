@@ -1,7 +1,6 @@
 <template>
-  <div v-if="loaded" class="information">
+  <div v-if="loaded" class="informationE">
     <h1>Intercambio realizado</h1>
-    
   </div>
 </template>
 
@@ -79,7 +78,7 @@ export default {
 </script>
 
 <style>
-.information {
+.informationE {
   margin: 0;
   padding: 0%;
   width: 100%;
@@ -89,21 +88,28 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.information h1 {
-  font-size: 60px;
+.informationE h1 {
+  font-size: 40px;
   color: #0f1316;
+ 
 }
-.information h2 {
+.informationE h2 {
   font-size: 20px;
   color: #283747;
 }
-.information span {
+.informationE span {
   color: rgb(252, 248, 249);
   font-weight: bold;
 }
 table, th, td, tr {
-  border:1px solid black;
+  border:none;
+  padding: 0;
 }
+
+th, td, tr {
+  width: 14px;
+}
+
 button {
   color: #e5e7e9;
   background: #283747;

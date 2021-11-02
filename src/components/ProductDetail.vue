@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loaded" class="information">
+  <div v-if="loaded" class="informationpd">
     <h2>Información de sus productos</h2>
     <h2>
       Name: <span>{{ name }}</span>
@@ -124,7 +124,7 @@ export default {
 </script>
 
 <style>
-.information {
+.informationpd {
   margin: 0;
   padding: 0%;
   width: 100%;
@@ -134,15 +134,15 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.information h1 {
+.informationpd h1 {
   font-size: 20px;
   color: #0f1316;
 }
-.information h2 {
+.informationpd h2 {
   font-size: 20px;
   color: #283747;
 }
-.information span {
+.informationpd span {
   color: crimson;
   font-weight: bold;
 }

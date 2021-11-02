@@ -1,45 +1,31 @@
 <template>
-  <div v-if="loaded" class="information">
-    <h1>Información de sus productos</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Product_ID</th>
-            <th>Name</th>
-            <th>Artist</th>
-            <th>Genre</th>
-            <th>Rate</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>State</th>
-            <th>Options</th>
-        </tr>
-        <tr v-for="(item, index) in products" :key="item.prod_name">
-            <td>{{index+1}}</td>
-            <td v-for="value in item" :key="value" >{{value}}</td>
-            <button v-on:click="loadProductDetail(item.prod_id)">Detalle del producto</button>
-            <button v-on:click="deleteProduct(item.prod_id)">Borrar este producto</button>
-        </tr>
-    </table> 
-        <!-- <ProductDetail msg="Welcome to Your Vue.js App"/> -->
-  </div>
+  <h1>Información de sus productos</h1>
+    <div v-if="loaded" class="prodContainer">
+      <div v-for="(item) in products" :key="item.prod_name" class="informationL">
+        <img src="item.urlimagen">
+        <h1>Titulo: {{item.prod_name}}</h1>
+        <h2>Artista: {{item.prod_artist}}</h2>
+        <button v-on:click="loadProductDetail(item.prod_id)">Detalle del producto</button>
+        <button v-on:click="deleteProduct(item.prod_id)">Borrar este producto</button>
+        
+         
+      </div>
+    </div>
+  
 </template>
 
 <script>
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-// import ProductDetail from './ProductDetail.vue';
 
 export default {
   name: "Library",
-//     components: {
-//     ProductDetail
-//   },
   data: function() {
     return {
-      products: [{"":""}],
+      
+      productId:0,
       loaded: false,
-      productID: 0,
+      
     };
   },
   methods: {
@@ -61,15 +47,13 @@ export default {
         })
         .then((result) => {
           this.products = result.data;
+          this.loaded = true;
           for (let item of this.products) {
-            //   delete item.prod_id;
               delete item.prod_user;
               delete item.prod_urlproduct;
               delete item.prod_urlimagen;
           }
-          // if(  this.products[0].prod_name === null || this.products === undefined || Array.isArray(this.products)  ){
-          // if (Object.getOwnPropertyNames(this.products).length === 0 &&  Object.getOwnPropertySymbols(this.products).length === 0 &&  Object.getPrototypeOf(this.products) === Object.prototype) {
-            if (this.products[0] === null || this.products[0] === undefined) {
+          if (this.products[0] === null || this.products[0] === undefined) {
             alert("Crea un producto primero para ver tu librería!");
           } else {
             this.loaded = true;
@@ -136,32 +120,44 @@ export default {
 </script>
 
 <style>
-.information {
-  margin: 0;
-  padding: 0%;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.informationL {
+  margin: 5px;
+  height: 50%;
+  width: 30%;
+  border:1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px 2px rgb(73, 72, 72);
+  flex-grow: 1;
+  text-align: center;
+  columns: #533459;
+  color: rgb(90, 88, 88);
+  background: rgba(77, 105, 134, 0.425);
 }
-.information h1 {
-  font-size: 60px;
-  color: #0f1316;
+
+.informationL h1 {
+  font-size: 19px;
+  
 }
-.information h2 {
-  font-size: 40px;
-  color: #283747;
+
+.informationL h2 {
+  font-size: 15px;
+  
+  
 }
-.information span {
-  color: rgb(250, 246, 247);
-  font-weight: bold;
+.informationL img {
+  width: 99%;
+  border-radius: 5px;
+  
 }
-table, th, td, tr {
-  border:1px solid black;
-   font-size: 25px;
+
+.informationL:hover{
+  background: #2d0350;
+  color: #bdbdbd;
+  transition: 0.4s all;
+  transform: scale(1.1);
+  cursor: pointer;
 }
+
 button {
   color: #e5e7e9;
   background: #283747;
@@ -169,9 +165,24 @@ button {
   border-radius: 5px;
   padding: 10px 20px;
 }
+
 button:hover {
   color: #283747;
   background: #e5e7e9;
   border: 1px solid #e5e7e9;
 }
+
+.prodContainer {
+  padding: 0px;
+  margin: auto;
+  width: 90%;
+  max-width: 900px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  
+}
+
 </style>

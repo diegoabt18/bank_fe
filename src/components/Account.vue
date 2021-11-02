@@ -1,6 +1,6 @@
 <template>
   
-    <div class="signUp_Account">
+  <div class="signUp_Account">
      <div class="container_Account">
        <div v-if="loaded" class="information">
         <b><h2>DATOS CUENTA</h2></b>

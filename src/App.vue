@@ -10,7 +10,7 @@
         <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
         <button v-if="is_auth" v-on:click="loadProduct">Crear producto</button>
         <button v-if="is_auth" v-on:click="loadLibrary">Librería</button>
-        <button v-if="is_auth" v-on:click="loadLibrary">...................</button>
+        
       </nav>
     </div>
 
@@ -120,7 +120,7 @@ body {
 
 .header nav {
   height: 100%;
-  width: 20%;
+  width: auto;
   display: flex;
   justify-content: space-around;
   align-items: left;
@@ -144,10 +144,8 @@ body {
 }
 
 .main-component {
-  height: 75vh;
-  margin: 0%;
-  padding: 0%;
-  background: #fdfefe;
+  min-height: 360px;
+  background-size: cover;
   background-image: url("https://www.kebuena.com.mx/wp-content/uploads/2020/02/GettyImages-947308190-e1580928053140.jpg");
 }
 
@@ -158,7 +156,11 @@ body {
   height: 0vh;
   min-height: 100px;
   background-color: #2d0350;
-  color: #e5e7e9;
+  color: #d0d1d3;
+  overflow: hidden;
+  position: relative;
+  top:auto;
+
 }
 
 .footer h2 {

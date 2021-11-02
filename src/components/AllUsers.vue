@@ -1,17 +1,15 @@
 <template>
-  <div v-if="loaded" class="information">
-    <h1>Con quién quieres intercambiar?</h1>
+  <h1>Con quién quieres intercambiar?</h1>
 
-    <div class="userList">
+    <div v-if="loaded" class="userList">
         <div v-for="item in usersList" :key="item.pk" class="userContainer">
-            <h2>Username: {{item.fields.username}}</h2>
-            <h2>Email: {{item.fields.email}}</h2>
-            <h2>Phone: {{item.fields.cellphone}}</h2>
+            <h2>Usuario:  {{item.fields.username}}</h2>
+            <h2>Email:  {{item.fields.email}}</h2>
+            <h2>Phone:  {{item.fields.cellphone}}</h2>
             <button v-on:click="loadExchange(item.pk)">Seleccionar usuario</button>
         </div>
     </div>
 
-  </div>
 </template>
 
 <script>
@@ -117,12 +115,28 @@ button:hover {
   border: 1px solid #e5e7e9;
 }
 .userList {
-    display: flex;
+  margin: auto;
+  width: 100%;
+  max-width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  opacity: 95%;
 }
 .userContainer {
   margin: 5px;
-  padding: 10px;
-  border: 1px solid #000000;
-  align-content: stretch;
+  height: 50%;
+  width: auto;
+  border:1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px 2px rgb(73, 72, 72);
+  flex-grow: wrap;
+  text-align: left;
+  columns: #533459;
+  color: rgb(90, 88, 88);
+
+  
 }
 </style>
