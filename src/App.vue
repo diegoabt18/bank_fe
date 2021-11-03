@@ -5,11 +5,11 @@
       <nav>
         <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
         <button v-if="is_auth" v-on:click="loadAccount">Información de cuenta</button>
-        <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
         <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
         <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
         <button v-if="is_auth" v-on:click="loadProduct">Crear producto</button>
         <button v-if="is_auth" v-on:click="loadLibrary">Librería</button>
+        <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
         <button v-if="is_auth" v-on:click="loadLibrary">...................</button>
       </nav>
     </div>

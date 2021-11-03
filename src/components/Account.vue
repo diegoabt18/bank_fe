@@ -1,28 +1,45 @@
 <template>
-  <div v-if="loaded" class="information">
-    <h1>Información de su cuenta</h1>
-    <h2>
-      Nombre: <span>{{ name }}</span>
-    </h2>
-    <h2>
-      Username: <span>{{ username }} </span>
-    </h2>
-    <h2>
-      Apellido: <span>{{ lastname }}</span>
-    </h2>
-    <h2>
-      Correo electrónico: <span>{{ email }}</span>
-    </h2>
-    <h2>
-      Dirección: <span>{{ address }}</span>
-    </h2>
-    <h2>
-      Celular: <span>{{ cellphone }}</span>
-    </h2>
-    <button v-on:click="loadUserUpdate">Actualizar información de usuario</button>
+  <div class="w3-container" align="stretch">
+    <div v-if="loaded">
+      <form
+        class="w3-container w3-card-4 w3-black w3-text-light-blue w3-margin"
+        style="width: 50%"
+      >
+        <h2 style="text-align:center;font-size: 60px;">Mi cuenta</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre del usuario</th>
+              <td style="text-align:right;">{{ name }}</td>
+            </tr>
+
+            <tr>
+              <th>Username</th>
+              <td style="text-align:right;">{{ username }}</td>
+            </tr>
+            <tr>
+              <th>Apellido</th>
+              <td style="text-align:right;">{{ lastname }}</td>
+            </tr>
+            <tr>
+              <th>Correo electrónico</th>
+              <td style="text-align:right;">{{ email }}</td>
+            </tr>
+            <tr>
+              <th>Dirección</th>
+              <td style="text-align:right;">{{ address }}</td>
+            </tr>
+            <tr>
+              <th>Celular</th>
+              <td style="text-align:right;">{{ cellphone }}</td>
+            </tr>
+          </thead>
+        </table>
+      </form>
+      <button v-on:click="loadUserUpdate">Actualizar información de usuario</button>
+    </div>
   </div>
 </template>
-
 
 
 <script>
@@ -100,23 +117,87 @@ export default {
 .information {
   margin: 0;
   padding: 0%;
-  width: 100%;
+  width: 90%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 80px;
+  font-family: "lucida", serif;
 }
+
 .information h1 {
-  font-size: 60px;
-  color: #0f1316;
-}
-.information h2 {
   font-size: 40px;
-  color: #283747;
-}
-.information span {
-  color: crimson;
+  color: lightblue;
   font-weight: bold;
+}
+/*.information h2 {
+  font-size: 90px;
+  color: lightblue;
+  font-weight: bold;
+  font-family: "lucida", serif;
+}*/
+.information span {
+  color: lightblue;
+}
+
+.signUp_Account {
+  margin: 0;
+  padding: 2% 15%;
+  height: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+.container_Account {
+  border: 3px solid #4a6b8f9d;
+  border-radius: 10px;
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.signUp_user h2 {
+  color: #7fffd4;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+table {
+  font-family: "Open Sans", sans-serif;
+  width: 750px;
+  border-collapse: collapse;
+  border: 3px solid #800000;
+  margin: 10px 10px 0 10px;
+}
+
+table th {
+  text-transform: uppercase;
+  text-align: left;
+  background: #800000;
+  color: #fff;
+  padding: 8px;
+  min-width: 30px;
+}
+
+table td {
+  text-align: left;
+  padding: 8px;
+  border-right: 2px solid #7d82a8;
+}
+table td:last-child {
+  border-right: none;
+}
+table tbody tr:nth-child(2n) td {
+  background: #d4d8f9;
 }
 </style>
