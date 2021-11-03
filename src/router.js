@@ -10,6 +10,7 @@ import ProductDetail from "./components/ProductDetail.vue";
 import AllUsers from "./components/AllUsers.vue";
 import Exchange from "./components/Exchange.vue";
 import ProductUpdate from "./components/ProductUpdate.vue";
+import UserUpdate from "./components/UserUpdate.vue";
 
 const routes = [
   {
@@ -67,6 +68,11 @@ const routes = [
     name: "updateProduct",
     component: ProductUpdate
   },
+  {
+    path: "/usr/userUpdate",
+    name: "userUpdate",
+    component: UserUpdate,
+  }
 ];
 const router = createRouter({
   history: createWebHistory(),

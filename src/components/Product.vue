@@ -2,8 +2,8 @@
   <div class="productCreation_user">
     <div class="container_productCreation_user">
       <h2>Crear contenido</h2>
-      <form v-on:submit.prevent="processProductCreation">
-        <input type="text" v-model="product.product_data.prod_name" placeholder="Name" required/>
+      <form v-on:submit.prevent="processProductCreation" enctype="multipart/form-data">
+        <input type="text" v-model="product.product_data.prod_name"  placeholder="Name" required/>
         <br />
         <input type="text" v-model="product.product_data.prod_artist" placeholder="Artist" required/>
         <br />
@@ -15,10 +15,10 @@
         <br />
         <input type="text" v-model="product.product_data.prod_description" placeholder="Description" required/>
         <br />
-        <input type="text" v-model="product.product_data.prod_urlproduct" placeholder="URLProduct" required/>
-        <br />
-        <input type="text" v-model="product.product_data.prod_urlimagen" placeholder="URLImage" required/>
-        <br />
+        <label style="font-size:25px">Ingrese el prudcto (audio o video)</label>
+        <input type="file" name="pro" @change="OnFileSelectecd1" placeholder="URLProducto" />
+        <label style="font-size:25px">Ingrese una caratula (imagen)</label>
+        <input type="file" name="img" @change="OnFileSelectecd2" placeholder="URLImagen" />
         <!-- <input type="text" v-model="product.product_data.prod_state" placeholder="State" />
         <br /> -->
         <button type="submit">Crear</button>
@@ -49,8 +49,10 @@ export default {
                 prod_urlproduct: "",
                 prod_urlimagen: "",
                 prod_state: false,
-            },
+            },  
         },
+        media_audio: null,
+        media_imagen: null,
     };
   },
   methods: {
@@ -70,30 +72,40 @@ export default {
       const headers = { 
         "Authorization": `Bearer ${token}`  
       };  
+      const fd=new FormData();
+      fd.append('audio',this.media_audio, this.media_audio.name)  
+      fd.append('imagen',this.media_imagen, this.media_imagen.name)
+      fd.append('data', JSON.stringify(this.product)) 
 
-      axios
-        .post("https://db-telocambio.herokuapp.com/product/", this.product, { headers })
-        .then((result) => {
-          let dataProductCreation = {
-            messageProductCreation: result,
-          };
-          this.$emit("completedProductCreation", dataProductCreation);
-          this.product.user_id = 0;
-          this.product.product_data.prod_user = 0;
-          this.product.product_data.prod_name = "";
-          this.product.product_data.prod_artist = "";
-          this.product.product_data.prod_genre = "";
-          this.product.product_data.prod_rate = 0;
-          this.product.product_data.prod_type = "";
-          this.product.product_data.prod_description = "";
-          this.product.product_data.prod_urlproduct = "";
-          this.product.product_data.prod_urlimagen = "";
-          this.product.product_data.prod_state = false;
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("ERROR: Fallo en la creación del producto.");
-        });
+      axios.post("https://telocambio-example.herokuapp.com/product/", fd, { headers })
+        .then(res=>{
+          console.log(res)
+          this.productoCreado()
+      });
+
+      // axios
+      //   .post("https://telocambio-example.herokuapp.com/product/", this.product, { headers })
+      //   .then((result) => {
+      //     let dataProductCreation = {
+      //       messageProductCreation: result,
+      //     };
+      //     this.$emit("completedProductCreation", dataProductCreation);
+      //     this.product.user_id = 0;
+      //     this.product.product_data.prod_user = 0;
+      //     this.product.product_data.prod_name = "";
+      //     this.product.product_data.prod_artist = "";
+      //     this.product.product_data.prod_genre = "";
+      //     this.product.product_data.prod_rate = 0;
+      //     this.product.product_data.prod_type = "";
+      //     this.product.product_data.prod_description = "";
+      //     this.product.product_data.prod_urlproduct = "";
+      //     this.product.product_data.prod_urlimagen = "";
+      //     this.product.product_data.prod_state = false;
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     alert("ERROR: Fallo en la creación del producto.");
+      //   });
     },
 
     verifyToken: function() {
@@ -110,6 +122,30 @@ export default {
           this.$emit("logOut");
         });
     },
+      OnFileSelectecd1(event){
+      this.media_audio=event.target.files[0] 
+      //this.product.product_data.prod_urlproduct=event.target.files[0]
+      console.log(event.target.files[0])
+    },
+    OnFileSelectecd2(event){
+      this.media_imagen=event.target.files[0]
+      console.log(event.target.files[0])
+      console.log(this.product.product_data.prod_urlimagen)
+    },
+    productoCreado(){
+      this.product.user_id = 0;
+      this.product.product_data.prod_user = 0;
+      this.product.product_data.prod_name = "";
+      this.product.product_data.prod_artist = "";
+      this.product.product_data.prod_genre = "";
+      this.product.product_data.prod_rate = 0;
+      this.product.product_data.prod_type = "";
+      this.product.product_data.prod_description = "";
+      this.product.product_data.prod_urlproduct = "";
+      this.product.product_data.prod_urlimagen = "";
+      this.product.product_data.prod_state = false;
+      alert("producto creado")
+    }
   },
 };
 </script>

@@ -2,11 +2,22 @@
   <h1>Información de sus productos</h1>
     <div v-if="loaded" class="prodContainer">
       <div v-for="(item) in products" :key="item.prod_name" class="informationL">
-        <img src="item.urlimagen">
-        <h1>Titulo: {{item.prod_name}}</h1>
-        <h2>Artista: {{item.prod_artist}}</h2>
-        <button v-on:click="loadProductDetail(item.prod_id)">Detalle del producto</button>
-        <button v-on:click="deleteProduct(item.prod_id)">Borrar este producto</button>
+        <div v-for="(value, index2) in item.fields" :key="value" >         
+              <p v-if="Visualizador1(value, index2)">
+                <button v-on:click="Reproductor(value)">Play ▶</button>
+                <button v-on:click="Pausar()">Pause ◼</button>
+              </p>
+              <p v-if="Visualizador2(value, index2)" v-html="inputs">  
+                
+              </p>
+              
+        </div>
+        <h2 class="songDetails">Name: {{item.fields.prod_name}} <br>
+              Artist: {{item.fields.prod_artist}}<br>
+              
+        </h2>
+        <button v-on:click="loadProductDetail(item.pk)">Detalle del producto</button>
+        <button v-on:click="deleteProduct(item.pk)">Borrar este producto</button>
         
          
       </div>
@@ -25,7 +36,9 @@ export default {
       
       productId:0,
       loaded: false,
-      
+      productID: 0,
+      inputs:"",
+      music:new Audio(),
     };
   },
   methods: {
@@ -42,18 +55,22 @@ export default {
       let userId = jwt_decode(token).user_id.toString();
       
       axios
-        .get(`https://db-telocambio.herokuapp.com/product/list/${userId}`, {
+        .get(`https://telocambio-example.herokuapp.com/product/list/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
           this.products = result.data;
-          this.loaded = true;
+          console.log(result.data)
           for (let item of this.products) {
+              delete item.model;
               delete item.prod_user;
-              delete item.prod_urlproduct;
-              delete item.prod_urlimagen;
+              item.fields.prod_urlproduct ="https://telocambio-example.herokuapp.com/media/"+item.fields.prod_urlproduct;
+              item.fields.prod_urlimagen ="https://telocambio-example.herokuapp.com/media/"+item.fields.prod_urlimagen;
           }
-          if (this.products[0] === null || this.products[0] === undefined) {
+
+          // if(  this.products[0].prod_name === null || this.products === undefined || Array.isArray(this.products)  ){
+          // if (Object.getOwnPropertyNames(this.products).length === 0 &&  Object.getOwnPropertySymbols(this.products).length === 0 &&  Object.getPrototypeOf(this.products) === Object.prototype) {
+            if (this.products[0] === null || this.products[0] === undefined) {
             alert("Crea un producto primero para ver tu librería!");
           } else {
             this.loaded = true;
@@ -68,7 +85,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://db-telocambio.herokuapp.com/refresh/",
+          "https://telocambio-example.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )
@@ -97,7 +114,7 @@ export default {
       localStorage.setItem("product", productID);
       let productId = localStorage.getItem("product").toString();
       axios
-        .get(`https://db-telocambio.herokuapp.com/product/remove/${userId}/${productId}`, {
+        .get(`https://telocambio-example.herokuapp.com/product/remove/${userId}/${productId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -110,12 +127,61 @@ export default {
           alert("ERROR: Fallo eliminado el producto");
           this.$emit("logOut");
         });
+    },
+    Visualizador1(productos, indice){
+      let bool=false;
+      //console.log(indice)
+      if(indice=="prod_urlproduct"){
+       // console.log(productos)
+        //this.inputs='<button v-on:click="Reproductor('+"'"+productos+"'"+')">Play</button>';
+     //   console.log(this.inputs)
+       bool=true;
+      }
+      return bool;
+    },
+     Visualizador2(productos, indice){
+      let bool=false;
+      //console.log(indice)
+      if(indice=="prod_urlimagen"){
+        this.inputs='<img width="150px" height="150px" src="'+productos +'">';
+       bool=true;
+      }
+      return bool;
+    },
+     Visualizador3(productos, indice){
+      let bool=false;
+      //console.log(indice)
+      if(indice!="prod_urlimagen" && indice!="prod_urlproduct"){
+        //this.inputs='<img width="150" height="150" src="'+productos +'">';
+       bool=true;
+      }
+      return bool;
+    },
+    Reproductor(link){
+      
+      console.log(link)
+      this.music.pause()
+      this.music.src= (link)
+      this.music.load()
+      this.music.play()
+      localStorage.setItem("musik",this.music)
+      
+    },
+    Pausar(){
+      this.music.pause()
+    },
+    prueba(){
+      alert("esto es una prueba")
     }
     
   },
   created: async function() {
     this.getData();
   },
+  // beforeDestroy: function() {
+  //   console.log("Entra aqui")
+  //   this.music.pause()
+  // },
 };
 </script>
 

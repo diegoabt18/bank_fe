@@ -43,7 +43,7 @@ export default {
       this.exchange.exchange_data.exch_prod = parseInt(localStorage.getItem("product"));
             
       axios
-        .post(`https://db-telocambio.herokuapp.com/exchange/`, this.exchange, {
+        .post(`https://telocambio-example.herokuapp.com/exchange/`, this.exchange, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -59,7 +59,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://db-telocambio.herokuapp.com/refresh/",
+          "https://telocambio-example.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )

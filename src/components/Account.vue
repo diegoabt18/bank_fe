@@ -1,20 +1,46 @@
 <template>
-  
-  <div class="signUp_Account">
-     <div class="container_Account">
-       <div v-if="loaded" class="information">
-        <b><h2>DATOS CUENTA</h2></b>
-        <h2>Nombre: <span>{{ name }}</span></h2>
-        <h2> Username: <span>{{ username }} </span></h2>
-        <h2>Apellido: <span>{{ lastname }}</span></h2>
-        <h2>Correo electrónico: <span>{{ email }}</span></h2>
-        <h2>Dirección: <span>{{ address }}</span></h2>
-        <h2>Celular: <span>{{ cellphone }}</span></h2>
-     </div>
+  <div class="w3-container" align="stretch">
+    <div v-if="loaded">
+      <form
+        class="w3-container w3-card-4 w3-black w3-text-light-blue w3-margin"
+        style="width: 50%"
+      >
+        <h2 style="text-align:center;font-size: 60px;">Mi cuenta</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre del usuario</th>
+              <td style="text-align:right;">{{ name }}</td>
+            </tr>
+
+            <tr>
+              <th>Username</th>
+              <td style="text-align:right;">{{ username }}</td>
+            </tr>
+            <tr>
+              <th>Apellido</th>
+              <td style="text-align:right;">{{ lastname }}</td>
+            </tr>
+            <tr>
+              <th>Correo electrónico</th>
+              <td style="text-align:right;">{{ email }}</td>
+            </tr>
+            <tr>
+              <th>Dirección</th>
+              <td style="text-align:right;">{{ address }}</td>
+            </tr>
+            <tr>
+              <th>Celular</th>
+              <td style="text-align:right;">{{ cellphone }}</td>
+            </tr>
+          </thead>
+        </table>
+      </form>
+      <button v-on:click="loadUserUpdate">Actualizar información de usuario</button>
     </div>
   </div>
-
 </template>
+
 
 <script>
 import jwt_decode from "jwt-decode";
@@ -46,7 +72,7 @@ export default {
       let token = localStorage.getItem("token_access");
       let userId = jwt_decode(token).user_id.toString();
       axios
-        .get(`https://db-telocambio.herokuapp.com/user/${userId}/`, {
+        .get(`https://telocambio-example.herokuapp.com/user/${userId}/`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -58,7 +84,6 @@ export default {
           this.cellphone = result.data.cellphone;
           this.loaded = true;
         })
-
         .catch(() => {
           this.$emit("logOut");
         });
@@ -66,7 +91,7 @@ export default {
     verifyToken: function() {
       return axios
         .post(
-          "https://db-telocambio.herokuapp.com/refresh/",
+          "https://telocambio-example.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )
@@ -76,6 +101,9 @@ export default {
         .catch(() => {
           this.$emit("logOut");
         });
+    },
+    loadUserUpdate: function() {
+      this.$router.push({ name: "userUpdate" });
     },
   },
   created: async function() {
@@ -95,23 +123,24 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 40px;
-  
-  }
+  font-size: 80px;
+  font-family: "lucida", serif;
+}
 
 .information h1 {
   font-size: 40px;
-  color: #212930;
+  color: lightblue;
   font-weight: bold;
 }
-.information h2 {
+/*.information h2 {
   font-size: 90px;
-  color: #283747;
+  color: lightblue;
   font-weight: bold;
-}
+  font-family: "lucida", serif;
+}*/
 .information span {
-  color: rgb(250, 246, 247);
-  }
+  color: lightblue;
+}
 
 .signUp_Account {
   margin: 0;
@@ -132,16 +161,43 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(77, 105, 134, 0.425);
+  background: black;
   font-size: 60px;
   font-weight: bold;
 }
 
 .signUp_user h2 {
-  color: #193450;
+  color: #7fffd4;
   font-size: 60px;
   font-weight: bold;
-  
 }
 
+table {
+  font-family: "Open Sans", sans-serif;
+  width: 750px;
+  border-collapse: collapse;
+  border: 3px solid #800000;
+  margin: 10px 10px 0 10px;
+}
+
+table th {
+  text-transform: uppercase;
+  text-align: left;
+  background: #800000;
+  color: #fff;
+  padding: 8px;
+  min-width: 30px;
+}
+
+table td {
+  text-align: left;
+  padding: 8px;
+  border-right: 2px solid #7d82a8;
+}
+table td:last-child {
+  border-right: none;
+}
+table tbody tr:nth-child(2n) td {
+  background: #d4d8f9;
+}
 </style>

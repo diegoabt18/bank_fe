@@ -7,7 +7,7 @@
 
         <div class="ProductInfoContainer"> 
             <h2>Editar información de contenido</h2>
-            <form v-on:submit.prevent="processProductUpdate">
+            <form v-on:submit.prevent="processProductUpdate" enctype="multipart/form-data">
             <input type="text" v-model="product.prod_name" placeholder="Name" required/>
             <br />
             <input type="text" v-model="product.prod_artist" placeholder="Artist" required/>
@@ -20,9 +20,9 @@
             <br />
             <input type="text" v-model="product.prod_description" placeholder="Description" required/>
             <br />
-            <input type="text" v-model="product.prod_urlproduct" placeholder="URLProduct" required/>
+            <input type="file" name="pro" @change="OnFileSelectecd1" placeholder="URLProducto" />
             <br />
-            <input type="text" v-model="product.prod_urlimagen" placeholder="URLImage" required/>
+            <input type="file" name="img" @change="OnFileSelectecd2" placeholder="URLImagen" />
             <br />
             <button type="submit">Editar información</button>
             </form>
@@ -59,6 +59,8 @@ export default {
             prod_urlimagen: "",
             prod_state: false,
         },
+        media_audio: null,
+        media_imagen: null,
         // messageProductUpdate,
     };
   },
@@ -80,32 +82,42 @@ export default {
       const headers = { 
         "Authorization": `Bearer ${token}`  
       };  
+      const fd=new FormData();
+      fd.append('audio',this.media_audio, this.media_audio.name)  
+      fd.append('imagen',this.media_imagen, this.media_imagen.name)
+      fd.append('data', JSON.stringify(this.product)) 
+
+      axios.post(`https://telocambio-example.herokuapp.com/product/update/${userIdFromToken}/${productID}`, fd, { headers })
+        .then(res=>{
+          console.log(res)
+          this.productoCreado()
+      });
         
-      axios
-        .post(`https://db-telocambio.herokuapp.com/product/update/${userIdFromToken}/${productID}`, this.product, { headers })
-        .then((result) => {
-            alert("Información del producto actualizada");
-            this.product.user_id = 0;
-            this.product.prod_user = 0;
-            this.product.prod_name = "";
-            this.product.prod_artist = "";
-            this.product.prod_genre = "";
-            this.product.prod_rate = 0;
-            this.product.prod_type = "";
-            this.product.prod_description = "";
-            this.product.prod_urlproduct = "";
-            this.product.prod_urlimagen = "";
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("ERROR: Fallo en la actualización del producto.");
-        });
+      // axios
+      //   .post(`https://telocambio-example.herokuapp.com/product/update/${userIdFromToken}/${productID}`, this.product, { headers })
+      //   .then((result) => {
+      //       alert("Información del producto actualizada");
+      //       this.product.user_id = 0;
+      //       this.product.prod_user = 0;
+      //       this.product.prod_name = "";
+      //       this.product.prod_artist = "";
+      //       this.product.prod_genre = "";
+      //       this.product.prod_rate = 0;
+      //       this.product.prod_type = "";
+      //       this.product.prod_description = "";
+      //       this.product.prod_urlproduct = "";
+      //       this.product.prod_urlimagen = "";
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     alert("ERROR: Fallo en la actualización del producto.");
+      //   });
     },
 
     verifyToken: function() {
       return axios
         .post(
-          "https://db-telocambio.herokuapp.com/refresh/",
+          "https://telocambio-example.herokuapp.com/refresh/",
           { refresh: localStorage.getItem("token_refresh") },
           { headers: {} }
         )
@@ -115,6 +127,14 @@ export default {
         .catch(() => {
           this.$emit("logOut");
         });
+    },
+      OnFileSelectecd1(event){
+      this.media_audio=event.target.files[0] 
+      console.log(event.target.files[0])
+    },
+      OnFileSelectecd2(event){
+      this.media_imagen=event.target.files[0]
+      console.log(event.target.files[0])
     },
   },
 };
