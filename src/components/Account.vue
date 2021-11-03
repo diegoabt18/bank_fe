@@ -19,6 +19,7 @@
     <h2>
       Celular: <span>{{ cellphone }}</span>
     </h2>
+    <button v-on:click="loadUserUpdate">Actualizar información de usuario</button>
   </div>
 </template>
 
@@ -83,6 +84,9 @@ export default {
         .catch(() => {
           this.$emit("logOut");
         });
+    },
+    loadUserUpdate: function() {
+      this.$router.push({ name: "userUpdate" });
     },
   },
   created: async function() {

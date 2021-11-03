@@ -1,51 +1,35 @@
 <template>
   <div v-if="loaded" class="information">
     <h1>Información de sus productos</h1>
-    <table>
-        
-        <tr>
-            <th>ID</th>
-            <th>Product_ID</th>
-            <th>user</th>
-            <th>Name</th>
-            <th>Artist</th>
-            <th>Genre</th>
-            <th>Rate</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>audio</th>
-            <th>imagen</th>
-            <th>State</th>
-            <th>Options</th>
-        </tr>
-        <tr v-for="(item, index) in products" :key="item.pk">
-            <td>{{index+1}}</td>
-            <td>{{item.pk}}</td>
-            <td v-for="(value, index2) in item.fields" :key="value" >
-              
+
+
+    <div class="productList">
+        <div v-for="item in products" :key="item.pk" class="productContainer">
+
+            <div v-for="(value, index2) in item.fields" :key="value" >         
               <p v-if="Visualizador1(value, index2)">
-                <button v-on:click="Reproductor(value)">Reproducir</button>
-                <button v-on:click="Pausar()">Pausar</button>
+                <button v-on:click="Reproductor(value)">Play ▶</button>
+                <button v-on:click="Pausar()">Pause ◼</button>
               </p>
               <p v-if="Visualizador2(value, index2)" v-html="inputs">  
                 
               </p>
-              <p v-if="Visualizador3(value, index2)">
+              <!-- <p v-if="Visualizador3(value, index2)">
                 {{value}}
-              </p>
-
-              <!-- <p v-else>{{value}}</p> -->
-
-            </td>
-           
+              </p> -->
+            </div>
+            <p class="songDetails">Name: {{item.fields.prod_name}} <br>
+              Artist: {{item.fields.prod_artist}}<br>
+              Genre: {{item.fields.prod_genre}}<br>
+              Rate: {{item.fields.prod_rate}}<br>
+              Type: {{item.fields.prod_type}}<br>
+              Description: {{item.fields.prod_description}}
+            </p>
             <button v-on:click="loadProductDetail(item.pk)">Detalle del producto</button>
             <button v-on:click="deleteProduct(item.pk)">Borrar este producto</button>
-            
-            <!-- <button v-on:click="Reproductor('https://telocambio-example.herokuapp.com/media/audio/eminen.mp4')">Play1</button>
-            <button v-on:click="Reproductor('https://telocambio-example.herokuapp.com/media/audio/y2mate.com_-_LAS_REGLAS_320kbps.mp3')">Play</button> -->
-        </tr>
-    </table> 
-        <!-- <ProductDetail msg="Welcome to Your Vue.js App"/> -->
+        </div>
+    </div>
+    
   </div>
 </template>
 
@@ -250,5 +234,28 @@ button:hover {
   color: #283747;
   background: #e5e7e9;
   border: 1px solid #e5e7e9;
+}
+
+.songDetails {
+  font-size: 20px;
+  color: #283747;
+  justify-content: center;
+  align-items: center;
+}
+.productList {
+    display: flex;
+}
+.productContainer {
+  margin: 5px;
+  padding: 10px;
+  align-content: stretch;
+  border: 3px solid #4a6b8f9d;
+  border-radius: 10px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(77, 105, 134, 0.425)
 }
 </style>
