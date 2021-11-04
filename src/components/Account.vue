@@ -187,15 +187,16 @@ table th {
   color: #fff;
   padding: 8px;
   min-width: 30px;
+  border: 3px solid black;
 }
 
 table td {
   text-align: left;
   padding: 8px;
-  border-right: 2px solid #7d82a8;
+   border: 3px solid black;
 }
 table td:last-child {
-  border-right: none;
+  border: 3px solid black;
 }
 table tbody tr:nth-child(2n) td {
   background: #d4d8f9;

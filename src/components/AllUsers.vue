@@ -1,15 +1,19 @@
 <template>
   <h1>Con quién quieres intercambiar?</h1>
 
-    <div v-if="loaded" class="userList">
-        <div v-for="item in usersList" :key="item.pk" class="userContainer">
-            <h2>Usuario:  {{item.fields.username}}</h2>
-            <h2>Email:  {{item.fields.email}}</h2>
-            <h2>Phone:  {{item.fields.cellphone}}</h2>
-            <button v-on:click="loadExchange(item.pk)">Seleccionar usuario</button>
-        </div>
+  <div v-if="loaded" class="userList">
+    <div
+      v-for="item in usersList"
+      :key="item.pk"
+      class="userContainer"
+      v-show="item.fields.username !== username"
+    >
+      <h2>Usuario: {{ item.fields.username }}</h2>
+      <h2>Email: {{ item.fields.email }}</h2>
+      <h2>Phone: {{ item.fields.cellphone }}</h2>
+      <button v-on:click="loadExchange(item.pk)">Seleccionar usuario</button>
     </div>
-
+  </div>
 </template>
 
 <script>
@@ -20,8 +24,9 @@ export default {
   name: "AllUsers",
   data: function() {
     return {
-      usersList: [{"":""}],
-        loaded: false,
+      usersList: [{ "": "" }],
+      loaded: false,
+      username: localStorage.getItem("username"),
     };
   },
   methods: {
@@ -36,7 +41,7 @@ export default {
       await this.verifyToken();
       let token = localStorage.getItem("token_access");
       let userId = jwt_decode(token).user_id.toString();
-      
+
       axios
         .get(`https://telocambio-example.herokuapp.com/user/list/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -99,8 +104,11 @@ export default {
   color: rgb(252, 248, 249);
   font-weight: bold;
 }
-table, th, td, tr {
-  border:1px solid black;
+table,
+th,
+td,
+tr {
+  border: 1px solid black;
 }
 button {
   color: #e5e7e9;
@@ -129,14 +137,12 @@ button:hover {
   margin: 5px;
   height: 50%;
   width: auto;
-  border:1px solid rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
   box-shadow: 0px 0px 2px 2px rgb(73, 72, 72);
   flex-grow: wrap;
   text-align: left;
   columns: #533459;
   color: rgb(90, 88, 88);
-
-  
 }
 </style>

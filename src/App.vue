@@ -145,8 +145,10 @@ body {
 }
 
 .main-component {
-  min-height: 360px;
-  background-size: cover;
+  height: 75vh;
+  margin: 0%;
+  padding: 0%;
+  background: #fdfefe;
   background-image: url("https://www.kebuena.com.mx/wp-content/uploads/2020/02/GettyImages-947308190-e1580928053140.jpg");
 }
 
@@ -157,10 +159,7 @@ body {
   height: 0vh;
   min-height: 100px;
   background-color: #2d0350;
-  color: #d0d1d3;
-  overflow: hidden;
-  position: relative;
-  top:auto;
+  color: #e5e7e9;
 
 }
 
